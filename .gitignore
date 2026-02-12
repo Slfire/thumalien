@@ -18,6 +18,8 @@ env/
 
 # Data & models
 data/
+models/fake_news_model/
+models/emotion_model/
 models/*.pkl
 models/*.pt
 models/*.bin
