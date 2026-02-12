@@ -1,0 +1,30 @@
+# Collecte Bluesky
+atproto==0.0.46
+
+# NLP
+spacy==3.7.4
+transformers==4.40.1
+torch==2.2.2
+scikit-learn==1.4.2
+
+# Analyse émotionnelle
+vaderSentiment==3.3.2
+
+# Base de données
+sqlalchemy==2.0.29
+psycopg2-binary==2.9.9
+
+# Dashboard
+streamlit==1.33.0
+plotly==5.22.0
+
+# Green IT
+codecarbon==2.3.4
+
+# Utilitaires
+python-dotenv==1.0.1
+pandas==2.2.1
+loguru==0.7.2
+
+# Tests
+pytest==8.1.1

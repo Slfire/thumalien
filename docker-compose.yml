@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: thumalien
+      POSTGRES_PASSWORD: thumalien
+      POSTGRES_DB: thumalien
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
