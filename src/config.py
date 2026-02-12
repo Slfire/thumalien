@@ -43,3 +43,4 @@ EMOTION_DATA_DIR = os.getenv("EMOTION_DATA_DIR", "data/kaggle/emotion")
 
 # CodeCarbon
 CODECARBON_COUNTRY = os.getenv("CODECARBON_COUNTRY", "FRA")
+EMISSIONS_FILE = os.getenv("EMISSIONS_FILE", "data/emissions.json")

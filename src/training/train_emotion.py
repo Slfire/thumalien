@@ -36,6 +36,7 @@ from src.config import (
     NUM_EPOCHS,
     TRAIN_BATCH_SIZE,
 )
+from src.energy.monitor import EnergyMonitor
 from src.training.utils import get_device, get_lora_config
 
 BASE_MODEL = "distilbert-base-multilingual-cased"
@@ -195,7 +196,14 @@ def main():
     )
 
     logger.info("Début de l'entraînement émotion...")
+    monitor = EnergyMonitor()
+    monitor.start()
     trainer.train()
+    energy = monitor.stop()
+    energy["task"] = "training_emotion"
+    from datetime import datetime, timezone
+    energy["timestamp"] = datetime.now(timezone.utc).isoformat()
+    EnergyMonitor.save_record(energy)
 
     # 5. Evaluation sur test set
     test_results = trainer.evaluate(test_dataset)
