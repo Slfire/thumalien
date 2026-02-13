@@ -9,7 +9,7 @@ from src.preprocessing.pipeline import PreprocessingPipeline
 
 def test_clean_text_removes_urls():
     pipeline = PreprocessingPipeline()
-    result = pipeline.clean_text("Voir https://example.com pour plus d'info")
+    result = pipeline.clean_text("See https://example.com for more info")
     assert "https" not in result
 
 
@@ -21,34 +21,34 @@ def test_clean_text_removes_mentions():
 
 def test_clean_text_normalizes_whitespace():
     pipeline = PreprocessingPipeline()
-    result = pipeline.clean_text("Beaucoup   d'espaces    ici")
+    result = pipeline.clean_text("Lots   of   spaces    here")
     assert "  " not in result
 
 
 def _make_mock_nlp():
     mock_nlp = MagicMock()
-    token_le = MagicMock(lemma_="le", is_stop=True, is_punct=False, is_space=False)
-    token_chat = MagicMock(lemma_="chat", is_stop=False, is_punct=False, is_space=False)
-    token_mange = MagicMock(lemma_="manger", is_stop=False, is_punct=False, is_space=False)
-    mock_nlp.return_value = [token_le, token_chat, token_mange]
+    token_the = MagicMock(lemma_="the", is_stop=True, is_punct=False, is_space=False)
+    token_cat = MagicMock(lemma_="cat", is_stop=False, is_punct=False, is_space=False)
+    token_eat = MagicMock(lemma_="eat", is_stop=False, is_punct=False, is_space=False)
+    mock_nlp.return_value = [token_the, token_cat, token_eat]
     return mock_nlp
 
 
 def test_tokenize_filters_stopwords():
     pipeline = PreprocessingPipeline()
     pipeline._nlp = _make_mock_nlp()
-    tokens = pipeline.tokenize("Le chat mange")
-    assert "le" not in tokens
-    assert "chat" in tokens
-    assert "manger" in tokens
+    tokens = pipeline.tokenize("The cat eats")
+    assert "the" not in tokens
+    assert "cat" in tokens
+    assert "eat" in tokens
 
 
 def test_tokenize_returns_lowercased_lemmas():
     pipeline = PreprocessingPipeline()
-    token = MagicMock(lemma_="Manger", is_stop=False, is_punct=False, is_space=False)
+    token = MagicMock(lemma_="Eating", is_stop=False, is_punct=False, is_space=False)
     pipeline._nlp = MagicMock(return_value=[token])
-    tokens = pipeline.tokenize("Manger")
-    assert tokens == ["manger"]
+    tokens = pipeline.tokenize("Eating")
+    assert tokens == ["eating"]
 
 
 def test_compute_embeddings_shape():
@@ -70,9 +70,9 @@ def test_process_post_enriches_dict():
     post = {
         "did": "did:plc:test",
         "rkey": "abc",
-        "text": "Le chat mange https://example.com",
+        "text": "The cat eats https://example.com",
         "created_at": "2026-01-01T00:00:00Z",
-        "langs": ["fr"],
+        "langs": ["en"],
         "collected_at": "2026-01-01T00:00:01Z",
         "raw": {},
     }

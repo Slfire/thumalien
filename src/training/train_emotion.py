@@ -39,7 +39,7 @@ from src.config import (
 from src.energy.monitor import EnergyMonitor
 from src.training.utils import get_device, get_lora_config
 
-BASE_MODEL = "distilbert-base-multilingual-cased"
+BASE_MODEL = "distilbert-base-uncased"
 EMOTION_LABELS = ["sadness", "joy", "love", "anger", "fear", "surprise"]
 LABEL2ID = {label: i for i, label in enumerate(EMOTION_LABELS)}
 ID2LABEL = {i: label for i, label in enumerate(EMOTION_LABELS)}

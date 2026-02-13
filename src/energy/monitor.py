@@ -7,7 +7,7 @@ import time
 from codecarbon import EmissionsTracker
 from loguru import logger
 
-from src.config import CODECARBON_COUNTRY, EMISSIONS_FILE
+from src.config import EMISSIONS_FILE
 
 
 class EnergyMonitor:
@@ -15,7 +15,6 @@ class EnergyMonitor:
 
     def __init__(self):
         self.tracker = EmissionsTracker(
-            country_iso_code=CODECARBON_COUNTRY,
             save_to_file=False,
             log_level="warning",
         )

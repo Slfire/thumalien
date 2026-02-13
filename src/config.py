@@ -10,7 +10,7 @@ JETSTREAM_URL = os.getenv(
     "JETSTREAM_URL", "wss://jetstream1.us-east.bsky.network/subscribe"
 )
 JETSTREAM_MAX_POSTS = int(os.getenv("JETSTREAM_MAX_POSTS", "1000"))
-JETSTREAM_LANG_FILTER = os.getenv("JETSTREAM_LANG_FILTER", "")
+JETSTREAM_LANG_FILTER = os.getenv("JETSTREAM_LANG_FILTER", "en")
 JETSTREAM_RAW_DIR = os.getenv("JETSTREAM_RAW_DIR", "data/raw")
 
 # Base de données
@@ -19,7 +19,7 @@ DATABASE_URL = os.getenv(
 )
 
 # Modèles
-MODEL_NAME = os.getenv("MODEL_NAME", "distilbert-base-multilingual-cased")
+MODEL_NAME = os.getenv("MODEL_NAME", "distilbert-base-uncased")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "paraphrase-multilingual-MiniLM-L12-v2")
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", "32"))
 MAX_SEQ_LENGTH = int(os.getenv("MAX_SEQ_LENGTH", "128"))

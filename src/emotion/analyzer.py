@@ -31,10 +31,17 @@ class EmotionAnalyzer:
     def _load_model(self):
         """Charge le modèle fine-tuné d'émotion."""
         from peft import AutoPeftModelForSequenceClassification
-        from transformers import pipeline as hf_pipeline
+        from transformers import AutoConfig, pipeline as hf_pipeline
 
         logger.info("Chargement du modèle émotion: {}", self.model_dir)
-        model = AutoPeftModelForSequenceClassification.from_pretrained(self.model_dir)
+        label2id = {label: i for i, label in enumerate(EMOTION_LABELS)}
+        id2label = {i: label for i, label in enumerate(EMOTION_LABELS)}
+        model = AutoPeftModelForSequenceClassification.from_pretrained(
+            self.model_dir,
+            num_labels=len(EMOTION_LABELS),
+            id2label=id2label,
+            label2id=label2id,
+        )
         model.eval()
 
         self._pipeline = hf_pipeline(

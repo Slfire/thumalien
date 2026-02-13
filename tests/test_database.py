@@ -13,10 +13,10 @@ def _sample_post():
     return {
         "did": "did:plc:test123",
         "rkey": "abc123",
-        "text": "Ceci est un test",
-        "cleaned_text": "Ceci est un test",
+        "text": "This is a test post",
+        "cleaned_text": "This is a test post",
         "created_at": "2026-02-12T09:13:07.209Z",
-        "langs": ["fr"],
+        "langs": ["en"],
         "collected_at": "2026-02-12T09:15:00.000Z",
     }
 
@@ -26,7 +26,7 @@ def test_save_and_retrieve_post():
     post = repo.save_post(_sample_post())
     assert post.id is not None
     assert post.did == "did:plc:test123"
-    assert post.text == "Ceci est un test"
+    assert post.text == "This is a test post"
 
 
 def test_duplicate_post_returns_existing():

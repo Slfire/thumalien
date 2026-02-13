@@ -5,10 +5,10 @@ import json
 from src.collector.jetstream_collector import JetstreamCollector
 
 
-def _make_message(text="Bonjour", langs=None, operation="create", kind="commit"):
+def _make_message(text="Hello world", langs=None, operation="create", kind="commit"):
     """Construit un message Jetstream synthétique."""
     if langs is None:
-        langs = ["fr"]
+        langs = ["en"]
     return json.dumps({
         "did": "did:plc:test123",
         "time_us": 1700000000000000,
@@ -36,10 +36,10 @@ def test_collector_init_defaults():
 def test_collector_init_custom():
     collector = JetstreamCollector(
         endpoint="wss://custom.endpoint/subscribe",
-        lang_filter="fr,en",
+        lang_filter="en,fr",
     )
     assert collector.endpoint == "wss://custom.endpoint/subscribe"
-    assert collector.lang_filter == ["fr", "en"]
+    assert collector.lang_filter == ["en", "fr"]
 
 
 def test_ws_url_includes_collection():
@@ -49,13 +49,13 @@ def test_ws_url_includes_collection():
 
 def test_parse_valid_create():
     collector = JetstreamCollector()
-    msg = _make_message(text="Ceci est un test", langs=["fr"])
+    msg = _make_message(text="This is a test", langs=["en"])
     result = collector._parse_message(msg)
     assert result is not None
     assert result["did"] == "did:plc:test123"
     assert result["rkey"] == "abc123"
-    assert result["text"] == "Ceci est un test"
-    assert result["langs"] == ["fr"]
+    assert result["text"] == "This is a test"
+    assert result["langs"] == ["en"]
     assert "collected_at" in result
     assert "raw" in result
 
@@ -79,14 +79,14 @@ def test_parse_non_commit_returns_none():
 
 
 def test_parse_lang_filter_accepts():
-    collector = JetstreamCollector(lang_filter="fr")
-    msg = _make_message(langs=["fr"])
+    collector = JetstreamCollector(lang_filter="en")
+    msg = _make_message(langs=["en"])
     assert collector._parse_message(msg) is not None
 
 
 def test_parse_lang_filter_rejects():
-    collector = JetstreamCollector(lang_filter="fr")
-    msg = _make_message(langs=["en"])
+    collector = JetstreamCollector(lang_filter="en")
+    msg = _make_message(langs=["fr"])
     assert collector._parse_message(msg) is None
 
 

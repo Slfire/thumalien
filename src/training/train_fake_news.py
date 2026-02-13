@@ -39,7 +39,7 @@ from src.config import (
 from src.energy.monitor import EnergyMonitor
 from src.training.utils import get_device, get_lora_config
 
-BASE_MODEL = "distilbert-base-multilingual-cased"
+BASE_MODEL = "distilbert-base-uncased"
 LABEL2ID = {"REAL": 0, "FAKE": 1}
 ID2LABEL = {0: "REAL", 1: "FAKE"}
 

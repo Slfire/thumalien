@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python -m spacy download fr_core_news_sm
+RUN python -m spacy download en_core_web_sm
 
 COPY . .
 

@@ -20,8 +20,8 @@ class PreprocessingPipeline:
         if self._nlp is None:
             import spacy
 
-            logger.info("Chargement du modèle spaCy fr_core_news_sm")
-            self._nlp = spacy.load("fr_core_news_sm")
+            logger.info("Chargement du modèle spaCy en_core_web_sm")
+            self._nlp = spacy.load("en_core_web_sm")
         return self._nlp
 
     @property

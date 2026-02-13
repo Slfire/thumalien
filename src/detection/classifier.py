@@ -41,7 +41,14 @@ class FakeNewsClassifier:
             )
 
         logger.info("Chargement du modèle fine-tuné: {}", self.model_dir)
-        model = AutoPeftModelForSequenceClassification.from_pretrained(self.model_dir)
+        label2id = {"REAL": 0, "FAKE": 1}
+        id2label = {0: "REAL", 1: "FAKE"}
+        model = AutoPeftModelForSequenceClassification.from_pretrained(
+            self.model_dir,
+            num_labels=2,
+            id2label=id2label,
+            label2id=label2id,
+        )
         model.eval()
 
         self._pipeline = hf_pipeline(
